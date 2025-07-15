@@ -9,6 +9,8 @@ A responsive Flutter application for rolling dice with customizable quick roll p
 - **Edit Existing Presets**: Click the edit icon on any preset to modify it
 - **Delete Presets**: Click the delete icon to remove unwanted presets
 - **Drag-and-Drop Reordering**: Drag presets to reorder them according to your preference
+  
+![alt text](https://github.com/tiation/dnd_dice_roller/blob/main/Screenshot%20from%202025-07-15%2015-01-42.png?raw=true)
 
 ### Preset Configuration Fields
 - **Name**: Description of the dice roll (e.g., "Attack Roll", "Damage")
