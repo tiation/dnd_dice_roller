@@ -1,5 +1,8 @@
 # D&D 5E Dice Roller
 
+![Google Play](https://img.shields.io/badge/Google%20Play-Download-green.svg)
+[Download](https://play.google.com/store/apps/details?id=com.dnd.dice.dnd_dice_roller)
+
 A responsive Flutter application for rolling dice with customizable quick roll presets.
 
 ## Features
@@ -10,7 +13,7 @@ A responsive Flutter application for rolling dice with customizable quick roll p
 - **Delete Presets**: Click the delete icon to remove unwanted presets
 - **Drag-and-Drop Reordering**: Drag presets to reorder them according to your preference
   
-![alt text](https://github.com/tiation/dnd_dice_roller/blob/main/Screenshot%20from%202025-07-15%2015-01-42.png?raw=true)
+![Screenshot](https://github.com/tiation/dnd_dice_roller/blob/main/Screenshot%20from%202025-07-15%2015-01-42.png?raw=true)
 
 ### Preset Configuration Fields
 - **Name**: Description of the dice roll (e.g., "Attack Roll", "Damage")
@@ -33,6 +36,32 @@ All preset changes are stored in the application's data model using:
 - **Intuitive Controls**: Easy-to-use edit and delete buttons
 - **Visual Feedback**: Color-coded presets with emoji icons
 - **Smooth Animations**: Fluid reordering and roll animations
+
+## Play Store Information
+
+### App Details
+- **Google Play ID**: com.dnd.dice.dnd_dice_roller
+- **Minimum Android Version**: API 21 - Android 5.0 (Lollipop)
+- **Targeted Android Version**: API 33 - Android 13 (Tiramisu)
+- **Content Rating**: Everyone
+- **App Category**: Entertainment / Tools
+
+### Key Features for Play Store
+- In-app purchases and ad-free premium version
+- Google Play Games integration for leaderboards
+- Full support for Android tablets and landscape mode
+- Optimized for material design and immersive user experience
+
+### Publishing
+The application is published using Google Play Console. Continuous integration and deployment (CI/CD) are set up to support automated testing and app delivery.
+
+### Privacy and Compliance
+Adheres to Google Play privacy requirements and includes a detailed privacy policy accessible within the app and Play Store listing.
+
+### Graphics and Screenshots
+- App icon designed for all resolutions
+- Detailed screenshots for various device types
+- Feature and promo graphics optimized for Play Store display
 
 ## Usage
 
