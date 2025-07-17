@@ -1,11 +1,15 @@
 # GitHub Pages Configuration for D&D 5E Dice Roller
 title: D&D 5E Dice Roller
 description: Advanced dice roller for D&D and tabletop RPG games with customizable presets
-url: "https://yourusername.github.io"
+url: "https://tiation.github.io"
 baseurl: "/dnd_dice_roller"
 
 # Theme
 theme: minima
+minima:
+  skin: dark
+  social_links:
+    github: tiation
 
 # Navigation
 header_pages:
@@ -16,11 +20,11 @@ header_pages:
 
 # SEO
 author:
-  name: Your Name
-  email: your.email@example.com
+  name: Tiation
+  email: contact@tiation.com
 
 # Social
-github_username: yourusername
+github_username: tiation
 
 # Build settings
 markdown: kramdown
