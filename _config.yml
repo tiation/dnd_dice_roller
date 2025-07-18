@@ -1,42 +1,31 @@
-title: D&D Dice Roller
-description: >- 
-  Professional Android D&D dice rolling application with enterprise-grade
-  features and comprehensive game support.
+# GitHub Pages Configuration
+title: "dnd_dice_roller"
+description: "Enterprise-grade solution in the Tiation ecosystem"
+url: "https://tiation.github.io/dnd_dice_roller"
+baseurl: ""
 
-baseurl: "/dnd_dice_roller"
-url: "https://tiation.github.io"
-
+# Theme
 theme: minima
+markdown: kramdown
+highlighter: rouge
 
-# Dark neon theme configuration
-color_scheme: dark
-
+# Plugins
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
 
-markdown: kramdown
-highlighter: rouge
-
-# Build settings
-kramdown:
-  syntax_highlighter_opts:
-    css_class: 'highlight'
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-
-# Exclude from processing
-exclude:
-  - .sass-cache/
-  - .jekyll-cache/
-  - gemfiles/
-  - Gemfile
-  - Gemfile.lock
-  - node_modules/
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
+# Dark neon theme
+custom_css: |
+  :root {
+    --primary-color: #00ffff;
+    --secondary-color: #ff00ff;
+    --background-color: #0a0a0a;
+    --text-color: #ffffff;
+    --accent-color: #00ff88;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: var(--text-color);
+  }
