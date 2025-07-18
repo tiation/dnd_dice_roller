@@ -103,11 +103,60 @@ flutter run -d web-server --web-port 8081
 flutter build web
 ```
 
+## Enhanced Features
+
+✅ **Persistent Storage**: All user data is now automatically saved using SharedPreferences
+- Quick rolls and presets are preserved between app sessions
+- Custom dice settings and selected categories are remembered
+- Roll history is maintained across app restarts
+- Automatic backup and restore functionality
+
+✅ **Category Filtering**: Enhanced UI with category chips and dropdown filters
+- Filter quick rolls by category (combat, skill, defense, damage, weapon)
+- Visual category indicators with neon cyan theme
+- Smooth category switching animations
+
+✅ **Import/Export Support**: Built-in data management capabilities
+- Export all presets and settings to JSON format
+- Import configurations from backup files
+- Data validation and error handling
+
+## Storage Implementation
+
+### SharedPreferences Integration
+The app now uses SharedPreferences for persistent storage with the following benefits:
+- **Automatic Saving**: All state changes are immediately persisted
+- **Fast Loading**: Data is loaded asynchronously on app startup
+- **Error Handling**: Graceful fallback to defaults if storage fails
+- **Data Integrity**: JSON serialization ensures data consistency
+
+### Storage Service Features
+- Singleton pattern for efficient memory usage
+- Separate storage for different data types (rolls, history, settings)
+- Automatic cleanup of old roll history (keeps last 20 entries)
+- Export/import functionality for data portability
+
+### Data Structure
+```json
+{
+  "version": "1.0.0",
+  "exportDate": "2025-01-17T16:30:00Z",
+  "quickRolls": [...],
+  "rollHistory": [...],
+  "settings": {
+    "selectedCategory": "all",
+    "selectedDice": 20,
+    "diceCount": 1,
+    "modifier": 0
+  }
+}
+```
+
 ## Future Enhancements
 
-- Persistent storage (SharedPreferences or database)
-- Import/export preset configurations
-- Preset categories and filtering
 - Advanced dice expressions (e.g., "3d6+2d4+5")
-- Roll history with statistics
-- Cloud sync across devices
+- Roll history with detailed statistics
+- Cloud sync across devices (Firebase integration)
+- Custom themes and color schemes
+- Dice animation effects
+- Sound effects for critical hits and fumbles

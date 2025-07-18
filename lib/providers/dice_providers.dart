@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import '../models/dice_roll.dart';
 import '../state/app_state.dart';
+import '../services/preset_service.dart';
 
 part 'dice_providers.g.dart';
 
@@ -170,6 +171,50 @@ class AppStateNotifier extends _$AppStateNotifier {
   // Rolling state
   void setRolling(bool isRolling) {
     state = state.copyWith(isRolling: isRolling);
+  }
+
+  // Import/Export Functionality
+  Future<bool> exportPresets({String? fileName}) async {
+    try {
+      return await PresetService.exportPresets(
+        appState: state,
+        customFileName: fileName,
+      );
+    } catch (e) {
+      debugPrint('Error exporting presets: $e');
+      return false;
+    }
+  }
+
+  Future<ImportResult> importPresets() async {
+    try {
+      return await PresetService.importPresets();
+    } catch (e) {
+      debugPrint('Error importing presets: $e');
+      return ImportResult(
+        success: false,
+        error: 'Failed to import presets: ${e.toString()}',
+      );
+    }
+  }
+
+  void applyImportedPresets(List<DiceRoll> presets, {ImportSettings? settings}) {
+    state = state.copyWith(quickRolls: presets);
+    
+    if (settings != null) {
+      state = state.copyWith(
+        selectedCategory: settings.selectedCategory,
+        selectedDice: settings.selectedDice,
+        diceCount: settings.diceCount,
+        modifier: settings.modifier,
+      );
+    }
+  }
+
+  void resetToDefaults() {
+    state = AppState(
+      quickRolls: _getDefaultQuickRolls(),
+    );
   }
 }
 

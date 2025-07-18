@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/dice_roll.dart';
 import '../providers/dice_providers.dart';
-import '../state/app_state.dart';
 
 class DiceRollerHome extends ConsumerStatefulWidget {
   const DiceRollerHome({super.key});
@@ -11,7 +10,7 @@ class DiceRollerHome extends ConsumerStatefulWidget {
   ConsumerState<DiceRollerHome> createState() => _DiceRollerHomeState();
 }
 
-class _DiceRollerHomeState extends ConsumerState<DiceRollerHome> 
+class _DiceRollerHomeState extends ConsumerState<DiceRollerHome>
     with TickerProviderStateMixin {
   late AnimationController _rollAnimationController;
   late Animation<double> _rollAnimation;
@@ -26,6 +25,8 @@ class _DiceRollerHomeState extends ConsumerState<DiceRollerHome>
     _rollAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _rollAnimationController, curve: Curves.bounceOut),
     );
+    
+    // Storage initialization will be handled by the provider
   }
 
   @override
@@ -41,6 +42,7 @@ class _DiceRollerHomeState extends ConsumerState<DiceRollerHome>
     
     final diceRoller = ref.read(diceRollerProvider.notifier);
     final result = diceRoller.performRoll(sides, count, modifier, description);
+    
     final formattedResult = diceRoller.formatRollResult(result, sides, count, modifier, description);
     
     ref.read(appStateNotifierProvider.notifier).addToHistory(formattedResult);
@@ -53,14 +55,14 @@ class _DiceRollerHomeState extends ConsumerState<DiceRollerHome>
     final isMediumScreen = screenWidth >= 600 && screenWidth < 1200;
     
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
         title: const Text('D&D 5E Dice Roller'),
         backgroundColor: const Color(0xFF2D2D2D),
         elevation: 4,
         actions: [
           IconButton(
-            icon: const Icon(Icons.clear_all),
+            icon: const Icon(Icons.clear_all, color: Color(0xFFFFD700)),
             onPressed: () => ref.read(appStateNotifierProvider.notifier).clearHistory(),
             tooltip: 'Clear History',
           ),
@@ -132,6 +134,8 @@ class _DiceRollerHomeState extends ConsumerState<DiceRollerHome>
 
   Widget _buildQuickRollSection() {
     final quickRolls = ref.watch(filteredQuickRollsProvider);
+    final categories = ref.watch(categoriesProvider);
+    final selectedCategory = ref.watch(appStateNotifierProvider.select((state) => state.selectedCategory));
     
     return Container(
       padding: const EdgeInsets.all(16),
@@ -163,6 +167,10 @@ class _DiceRollerHomeState extends ConsumerState<DiceRollerHome>
               ),
             ],
           ),
+          const SizedBox(height: 8),
+          _buildCategoryFilter(categories, selectedCategory),
+          const SizedBox(height: 8),
+          _buildCategoryChips(categories, selectedCategory),
           const SizedBox(height: 8),
           SizedBox(
             height: 400,
@@ -445,7 +453,7 @@ class _DiceRollerHomeState extends ConsumerState<DiceRollerHome>
     );
   }
 
-  Widget _buildHistorySection() {
+Widget _buildHistorySection() {
     final rollHistory = ref.watch(appStateNotifierProvider.select((state) => state.rollHistory));
     
     return Container(
@@ -597,6 +605,118 @@ class _DiceRollerHomeState extends ConsumerState<DiceRollerHome>
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryFilter(List<String> categories, String selectedCategory) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF3A3A3A),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: const Color(0xFF00FFFF), // Cyan neon border
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00FFFF).withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.filter_list,
+            color: Color(0xFF00FFFF),
+            size: 20,
+          ),
+          const SizedBox(width: 8),
+          const Text(
+            'Category: ',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          DropdownButton<String>(
+            value: selectedCategory,
+            dropdownColor: const Color(0xFF2D2D2D),
+            underline: Container(), // Remove default underline
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: Color(0xFF00FFFF),
+            ),
+            items: categories.map((category) => 
+              DropdownMenuItem(
+                value: category,
+                child: Text(
+                  category == 'all' ? 'All Categories' : category.toUpperCase(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+              )).toList(),
+            onChanged: (value) {
+              if (value != null) {
+                ref.read(appStateNotifierProvider.notifier).setSelectedCategory(value);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoryChips(List<String> categories, String selectedCategory) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: categories.map((category) {
+          final isSelected = category == selectedCategory;
+          return Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: GestureDetector(
+              onTap: () {
+                ref.read(appStateNotifierProvider.notifier).setSelectedCategory(category);
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: isSelected ? const Color(0xFF00FFFF) : const Color(0xFF3A3A3A),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: isSelected ? const Color(0xFF00FFFF) : Colors.transparent,
+                    width: 2,
+                  ),
+                  boxShadow: isSelected ? [
+                    BoxShadow(
+                      color: const Color(0xFF00FFFF).withOpacity(0.5),
+                      blurRadius: 12,
+                      offset: const Offset(0, 2),
+                    ),
+                  ] : null,
+                ),
+                child: Text(
+                  category == 'all' ? 'All' : category.toUpperCase(),
+                  style: TextStyle(
+                    color: isSelected ? Colors.black : Colors.white,
+                    fontFamily: 'Roboto',
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }

@@ -4,17 +4,19 @@
 @import "minima/skins/{{ site.minima.skin | default: 'auto' }}";
 @import "minima/initialize";
 
-// Dark Neon Theme Variables
-$neon-cyan: #00ffff;
-$neon-purple: #ff00ff;
-$neon-green: #00ff00;
-$neon-orange: #ff8800;
+// Dark Neon Theme Variables - Black, Neon Red, and Gold
 $neon-red: #ff0040;
-$neon-blue: #0080ff;
-$dark-bg: #0a0a0a;
-$darker-bg: #050505;
+$neon-gold: #ffd700;
+$neon-orange: #ff6600;
+$deep-red: #cc0033;
+$bright-gold: #ffed4a;
+$dark-gold: #b8860b;
+$dark-bg: #000000;
+$darker-bg: #0a0a0a;
 $card-bg: #1a1a1a;
 $text-glow: #ffffff;
+$accent-red: #ff1744;
+$accent-gold: #ffab00;
 
 // Custom fonts
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
@@ -37,9 +39,10 @@ body::before {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 60%, rgba(0, 255, 0, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 20% 20%, rgba(255, 0, 64, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(255, 102, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 60% 40%, rgba(255, 23, 68, 0.1) 0%, transparent 50%);
   z-index: -2;
   animation: pulseGlow 4s ease-in-out infinite alternate;
 }

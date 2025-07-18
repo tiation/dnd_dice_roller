@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'views/dice_roller_home.dart';
-
 void main() {
   runApp(const ProviderScope(child: DnDDiceRollerApp()));
 }

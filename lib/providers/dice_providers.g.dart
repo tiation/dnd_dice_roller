@@ -58,7 +58,7 @@ final diceTypesProvider = AutoDisposeProvider<List<int>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef DiceTypesRef = AutoDisposeProviderRef<List<int>>;
-String _$appStateNotifierHash() => r'659b99bec724ec620c5bc9c34b5649b5fbeee81b';
+String _$appStateNotifierHash() => r'692375a85d28028da9a98cf1eba2e9c448baad7a';
 
 /// See also [AppStateNotifier].
 @ProviderFor(AppStateNotifier)
